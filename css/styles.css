@@ -1,0 +1,490 @@
+/* ========== 重置 ========== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #fef7fa;
+    --surface: #ffffff;
+    --border: #f0d5e0;
+    --text: #3d2c33;
+    --text-secondary: #8c6b78;
+    --text-muted: #b898a5;
+    --accent: #d4679b;
+    --accent-hover: #c05088;
+    --accent-light: #fce4f0;
+    --radius: 8px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========== 容器 ========== */
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+/* ========== 头部 ========== */
+.app-header {
+    padding: var(--space-xl) 0 var(--space-sm);
+}
+
+.app-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.app-logo {
+    width: 36px;
+    height: 36px;
+    color: var(--text);
+    flex-shrink: 0;
+}
+
+.app-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.app-description {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* ========== 主内容 ========== */
+.app-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* ========== 链接输入区 ========== */
+.link-input-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+}
+
+.input-group {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.music-link-input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.music-link-input:focus {
+    border-color: var(--accent);
+}
+
+.music-link-input::placeholder {
+    color: var(--text-muted);
+}
+
+.parse-button {
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(212, 103, 155, 0.2);
+}
+
+.parse-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(212, 103, 155, 0.3);
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== 解析状态 ========== */
+.parse-status-section {
+    display: flex;
+    justify-content: center;
+}
+
+.parse-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.status-spinner {
+    width: 18px;
+    height: 18px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========== 音乐信息 ========== */
+.music-info-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+}
+
+.music-info-container {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.music-cover {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.music-cover img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.music-cover img[src=""] {
+    display: none;
+}
+
+.music-cover img[src=""] ~ .cover-placeholder {
+    display: flex;
+}
+
+.cover-placeholder {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    border-radius: 6px;
+}
+
+.cover-placeholder svg {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+}
+
+.music-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.music-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.music-artist,
+.music-album {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.audio-player {
+    margin-top: var(--space-sm);
+}
+
+.audio-player audio {
+    width: 100%;
+    height: 32px;
+}
+
+.download-button {
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(212, 103, 155, 0.2);
+}
+
+.download-button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(212, 103, 155, 0.3);
+}
+
+/* ========== 底部双栏 ========== */
+.bottom-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+}
+
+.download-manager-section,
+.history-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0;
+}
+
+.clear-history-button {
+    padding: 4px 10px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.clear-history-button:hover {
+    color: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* ========== 下载列表 ========== */
+.download-list,
+.history-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    overflow-y: auto;
+    max-height: 260px;
+}
+
+.download-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.download-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.download-name {
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.download-size {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.download-progress {
+    grid-column: 1 / -1;
+}
+
+.progress-bar {
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-light), var(--accent));
+    width: 0;
+    transition: width 0.2s;
+}
+
+.progress-text {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    text-align: right;
+    display: block;
+}
+
+.download-actions {
+    display: flex;
+    gap: 2px;
+    align-items: flex-start;
+}
+
+.control-button {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.control-button:hover {
+    background: #f5f5f5;
+}
+
+.pause-button {
+    color: var(--text);
+}
+
+.cancel-button {
+    color: #d32f2f;
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+    flex: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    padding: var(--space-lg);
+}
+
+/* ========== 底部 ========== */
+.app-footer {
+    text-align: center;
+    padding: var(--space-md);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+}
+
+/* ========== 工具类 ========== */
+.hidden {
+    display: none !important;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 768px) {
+    .app-container {
+        padding: var(--space-md);
+    }
+
+    .music-info-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .music-cover {
+        margin: 0 auto;
+    }
+
+    .bottom-panels {
+        grid-template-columns: 1fr;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .parse-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
